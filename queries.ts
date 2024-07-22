@@ -10,6 +10,15 @@ export const GET_ABOUT_PAGE = gql`
           sourceUrl
         }
       }
+      profilePicture {
+        profilePicture {
+          node {
+            sourceUrl
+            altText
+            id
+          }
+        }
+      }
     }
   }
 `;
