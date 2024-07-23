@@ -5,6 +5,7 @@ import client from '../apollo-client';
 import { GET_ABOUT_PAGE } from '../queries';
 import Image from 'next/image';
 
+// read up more on this
 interface AboutPageProps {
   title: string;
   content: string;
@@ -21,7 +22,7 @@ const About: React.FC<AboutPageProps> = ({ title, content, featuredImage, profil
       </Head>
       <div className="flex flex-col lg:flex-row lg:items-center">
         <div className="flex-1">
-          <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center">{title}</h1> // title obvs
+          <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center">{title}</h1> // About
           {featuredImage && (
             <div className="mb-4">
               <Image
