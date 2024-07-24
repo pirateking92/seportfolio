@@ -2,7 +2,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import client from '../apollo-client';
-import { GET_ABOUT_PAGE } from '../queries';
+import { GET_SITE_SETTINGS } from '../queries';
 import Image from 'next/image';
 
 // read up more on this
@@ -54,7 +54,7 @@ const About: React.FC<AboutPageProps> = ({ title, content, featuredImage, profil
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
-    query: GET_ABOUT_PAGE,
+    query: GET_SITE_SETTINGS,
   });
 
 

@@ -1,20 +1,24 @@
-import { GET_SITE_SETTINGS } from "../queries";
-import { GetStaticProps } from "next";
+// components/Name.tsx
 import Head from "next/head";
-import client from "../apollo-client";
 
 interface NameProps {
-    title: string;
-    description: string;
+  siteTitle: string;
+  siteDescription: string;
 }
 
-const Name: React.FC<NameProps> = ({ title, description }) => {
-    return (
-        <div>
-            <Head>
-                <title>{title}</title>
-                <meta name="Site title" content="Sepy Baghaei, Director and Playwright" />
-            </Head>
-        </div>
-    )
-}
+const Name: React.FC<NameProps> = ({ siteTitle, siteDescription }) => {
+  return (
+    <div>
+      <Head>
+        <title>{siteTitle}</title>
+        <meta name="description" content={siteDescription} />
+      </Head>
+      <div>
+        <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center">{siteTitle}</h1>
+        <p className="text-center text-slate-400">{siteDescription}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Name;
