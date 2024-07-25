@@ -3,6 +3,7 @@ import client from "../apollo-client";
 import { GET_SITE_SETTINGS } from "../queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
+import Navbar from "../components/Navbar";
 
 interface HomePageProps {
   siteTitle: string;
@@ -27,31 +28,34 @@ const HomePage: React.FC<HomePageProps> = ({
 }) => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Name siteTitle={siteTitle} siteDescription={siteDescription} />
-      <main className="container mt-24 mx-auto px-12 py-4">
-        <About
-          title={title}
-          content={content}
-          featuredImage={featuredImage}
-          profilePicture={profilePicture.sourceUrl}
-        />
-      </main>
+      <Navbar />
+      <div className="pt-16 md:pt-20">
+        {" "}
+        {/* Add top padding here */}
+        <Name siteTitle={siteTitle} siteDescription={siteDescription} />
+        <main className="container mt-24 mx-auto px-12 py-4">
+          <About
+            profilePicture={profilePicture.sourceUrl}
+            title={title}
+            content={content}
+          />
+        </main>
+      </div>
     </div>
   );
 };
-
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: GET_SITE_SETTINGS,
   });
 
   // here just to check if there are any errors with what we're pulling from graphql
-  console.log('GraphQL Data:', data);
+  console.log("GraphQL Data:", data);
 
   const profilePicture = data.page.profilePicture?.profilePicture?.node || {
-    sourceUrl: '',
-    altText: '',
-    id: '',
+    sourceUrl: "",
+    altText: "",
+    id: "",
   };
 
   return {
@@ -60,7 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
       siteDescription: data.generalSettings.description,
       title: data.page.title,
       content: data.page.content,
-      featuredImage: data.page.featuredImage?.node?.sourceUrl || '',
+      featuredImage: data.page.featuredImage?.node?.sourceUrl || "",
       profilePicture,
     },
   };
