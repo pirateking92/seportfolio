@@ -6,10 +6,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        indieFlower: ['var(--font-indieFlower)'],
+      },
       backgroundImage: {
         'black-to-navy': 'linear-gradient(to bottom right, #000000, #000080', // custom gradient
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
