@@ -1,4 +1,4 @@
-// pages/about.tsx
+// pages/AboutSection.tsx
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import client from "../apollo-client";
