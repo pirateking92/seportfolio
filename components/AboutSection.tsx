@@ -23,12 +23,15 @@ const About: React.FC<AboutPageProps> = ({
         <title>{title}</title>
         <meta name="description" content="About Sepy Baghaei" />
       </Head>
-      <div className="flex flex-col lg:flex-row lg:items-center">
+      <div className="flex flex-col lg:flex-row lg:items-start">
         <div className="flex-1">
-          <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center">
+          <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
             {title}
-          </h1>{" "}
-          // About
+          </h1>
+          <div
+            className="prose text-slate-300"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
         {profilePicture && (
           <div className="flex-shrink-0 ml-0 lg:ml-8 mt-8 lg:mt-0 p-5 ">
@@ -42,11 +45,6 @@ const About: React.FC<AboutPageProps> = ({
           </div>
         )}
       </div>
-      <div
-        className=" prose text-slate-300"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />{" "}
-      // edit here for the about text
     </div>
   );
 };
