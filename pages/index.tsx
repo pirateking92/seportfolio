@@ -4,6 +4,7 @@ import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";
+import ContactForm from "../components/ContactForm";
 
 interface HomePageProps {
   siteTitle: string;
@@ -53,6 +54,7 @@ const HomePage: React.FC<HomePageProps> = ({
               </button>
             </a>
           </div> */}
+          <ContactForm />
         </main>
       </div>
     </div>

@@ -22,7 +22,7 @@ const indieFlower = Indie_Flower({
 const navLinks: NavLink[] = [
   {
     title: "About",
-    path: "#about",
+    path: "/",
   },
   {
     title: "CV",
@@ -63,8 +63,8 @@ const Navbar: React.FC = () => {
   });
   return (
     <nav ref={navbarRef} className="fixed top-0 left-0 right-0 z-10">
-      <div className="flex container lg:py-4 flex-wrap items-center justify-between mx-auto px-4 py-2">
-        {/* Ensure logo is styled correctly */}
+      <div className="flex container lg:py-4 items-center justify-between mx-auto px-4 py-2">
+        {/* Logo */}
         <div className={indieFlower.variable}>
           <Link
             href={"/"}
@@ -73,8 +73,22 @@ const Navbar: React.FC = () => {
             Sepy
           </Link>
         </div>
-        {/* Container for the mobile menu button */}
-        <div className="flex md:hidden">
+
+        {/* Desktop Menu */}
+        <div className={`${indieFlower.variable} hidden md:block`}>
+          <div className="font-indieFlower" id="navbar">
+            <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
+              {navLinks.map((link, index) => (
+                <li key={index}>
+                  <NavLink href={link.path} title={link.title} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
           <button
             onClick={() => setNavbarOpen(!navbarOpen)}
             className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
@@ -85,21 +99,6 @@ const Navbar: React.FC = () => {
               <Bars3Icon className="h-5 w-5" />
             )}
           </button>
-        </div>
-        {/* Ensure menu items are hidden on mobile and flex on larger screens */}
-        <div className={indieFlower.variable}>
-          <div
-            className="font-indieFlower hidden md:flex md:w-auto"
-            id="navbar"
-          >
-            <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
-              {navLinks.map((link, index) => (
-                <li key={index}>
-                  <NavLink href={link.path} title={link.title} />
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
       {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
