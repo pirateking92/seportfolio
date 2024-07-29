@@ -17,6 +17,7 @@
     "classnames": "^2.3.1",
     "date-fns": "^2.28.0",
     "graphql": "^16.9.0",
+    "gsap": "^3.12.5",
     "html-react-parser": "^5.1.12",
     "next": "latest",
     "react": "^18.2.0",

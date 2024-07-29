@@ -2,34 +2,49 @@ import { gql } from '@apollo/client';
 
 // have combined both getting site title and description with the about information. 
 // will probably do the same for subsequent queries. Will this make loading slower?
+// Query for site settings
 export const GET_SITE_SETTINGS = gql`
-query GetSiteSettings {
-  generalSettings {
-    title
-    description
-  }
-  page(id: "about", idType: URI) {
-    title
-    content
-    featuredImage {
-      node {
-        sourceUrl
-      }
+  query GetSiteSettings {
+    generalSettings {
+      title
+      description
     }
-    profilePicture {
-      profilePicture {
+  }
+`;
+
+// Query for the about page
+export const GET_ABOUT_PAGE = gql`
+  query GetAboutPage {
+    page(id: "about", idType: URI) {
+      title
+      content
+      featuredImage {
         node {
           sourceUrl
-          altText
-          id
+        }
+      }
+      profilePicture {
+        profilePicture {
+          node {
+            sourceUrl
+            altText
+            id
+          }
         }
       }
     }
-    cvUpload: page(id: "cv", idType: URI) {
+  }
+`;
+
+// Query for the CV page
+export const GET_CV_PAGE = gql`
+query GetCVPage {
+  page(id: "cv", idType: URI) {
+    cvUpload {
       cvUpload {
         node {
+          sourceUrl
           mediaItemUrl
-          mediaType
         }
       }
     }

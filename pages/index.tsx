@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import client from "../apollo-client";
-import { GET_SITE_SETTINGS } from "../queries";
+import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";
@@ -16,6 +16,9 @@ interface HomePageProps {
     altText: string;
     id: string;
   };
+  cvUpload: {
+    mediaItemUrl: string;
+  };
 }
 
 const HomePage: React.FC<HomePageProps> = ({
@@ -25,13 +28,12 @@ const HomePage: React.FC<HomePageProps> = ({
   content,
   featuredImage,
   profilePicture,
+  cvUpload,
 }) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <div className="pt-16 md:pt-20">
-        {" "}
-        {/* Add top padding here */}
         <Name siteTitle={siteTitle} siteDescription={siteDescription} />
         <main className="container mt-24 mx-auto px-12 py-4">
           <About
@@ -39,33 +41,59 @@ const HomePage: React.FC<HomePageProps> = ({
             title={title}
             content={content}
           />
+          {/* Example of using the cvUpload data
+          <div className="mt-8">
+            <a
+              href={cvUpload.mediaItemUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                View CV
+              </button>
+            </a>
+          </div> */}
         </main>
       </div>
     </div>
   );
 };
+
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await client.query({
+  const { data: siteData } = await client.query({
     query: GET_SITE_SETTINGS,
   });
 
-  // here just to check if there are any errors with what we're pulling from graphql
-  console.log("GraphQL Data:", data);
+  const { data: aboutData } = await client.query({
+    query: GET_ABOUT_PAGE,
+  });
 
-  const profilePicture = data.page.profilePicture?.profilePicture?.node || {
+  const { data: cvData } = await client.query({
+    query: GET_CV_PAGE,
+  });
+
+  console.log("GraphQL Data:", { siteData, aboutData, cvData });
+
+  const profilePicture = aboutData.page.profilePicture?.profilePicture
+    ?.node || {
     sourceUrl: "",
     altText: "",
     id: "",
   };
 
+  const cvUpload = cvData.page.cvUpload || {
+    mediaItemUrl: "",
+  };
+
   return {
     props: {
-      siteTitle: data.generalSettings.title,
-      siteDescription: data.generalSettings.description,
-      title: data.page.title,
-      content: data.page.content,
-      featuredImage: data.page.featuredImage?.node?.sourceUrl || "",
+      siteTitle: siteData.generalSettings.title,
+      siteDescription: siteData.generalSettings.description,
+      title: aboutData.page.title,
+      content: aboutData.page.content,
+      featuredImage: aboutData.page.featuredImage?.node?.sourceUrl || "",
       profilePicture,
+      cvUpload,
     },
   };
 };
