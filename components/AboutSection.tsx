@@ -2,7 +2,6 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import client from "../apollo-client";
-import { GET_SITE_SETTINGS } from "../queries";
 import { GET_ABOUT_PAGE } from "../queries";
 import Image from "next/image";
 import { Indie_Flower } from "next/font/google";
@@ -14,19 +13,13 @@ interface AboutPageProps {
   profilePicture: string;
 }
 
-const indieFlower = Indie_Flower({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-indieFlower",
-});
-
 const About: React.FC<AboutPageProps> = ({
   title,
   content,
   profilePicture,
 }) => {
   return (
-    <div className={indieFlower.variable}>
+    <div>
       <div className="container mx-auto p-4">
         <Head>
           <title>{title}</title>
@@ -34,7 +27,7 @@ const About: React.FC<AboutPageProps> = ({
         </Head>
         <div className="flex flex-col lg:flex-row lg:items-start">
           <div className="flex-1">
-            <h1 className="font-indieFlower text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
+            <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
               {title}
             </h1>
 

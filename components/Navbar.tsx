@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
-import { Indie_Flower } from "next/font/google";
+import { headingFont } from "../lib/fonts";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -12,12 +12,6 @@ interface NavLink {
   title: string;
   path: string;
 }
-
-const indieFlower = Indie_Flower({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-indieFlower",
-});
 
 const navLinks: NavLink[] = [
   {
@@ -65,17 +59,16 @@ const Navbar: React.FC = () => {
     <nav ref={navbarRef} className="fixed top-0 left-0 right-0 z-10">
       <div className="flex container lg:py-4 items-center justify-between mx-auto px-4 py-2">
         {/* Logo */}
-        <div className={indieFlower.variable}>
-          <Link
-            href={"/"}
-            className="font-indieFlower text-xl md:text-3xl text-white font-semibold"
-          >
-            Sepy
-          </Link>
-        </div>
+
+        <Link
+          href={"/"}
+          className="font-indieFlower text-xl md:text-3xl text-white font-semibold"
+        >
+          Sepy
+        </Link>
 
         {/* Desktop Menu */}
-        <div className={`${indieFlower.variable} hidden md:block`}>
+        <div className="hidden md:block">
           <div className="font-indieFlower" id="navbar">
             <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
               {navLinks.map((link, index) => (

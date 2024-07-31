@@ -8,15 +8,9 @@ interface NameProps {
   siteDescription: string;
 }
 
-const indieFlower = Indie_Flower({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-indieFlower",
-});
-
 const Name: React.FC<NameProps> = ({ siteTitle, siteDescription }) => {
   return (
-    <div className={indieFlower.variable}>
+    <div>
       <Head>
         <title>{parse(siteTitle)}</title>
       </Head>
