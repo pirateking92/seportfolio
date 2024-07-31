@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
-import { headingFont } from "../lib/fonts";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -69,15 +68,13 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:block">
-          <div className="font-indieFlower" id="navbar">
-            <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
-              {navLinks.map((link, index) => (
-                <li key={index}>
-                  <NavLink href={link.path} title={link.title} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="font-indieFlower flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
+            {navLinks.map((link, index) => (
+              <li key={index}>
+                <NavLink href={link.path} title={link.title} />
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Mobile Menu Button */}

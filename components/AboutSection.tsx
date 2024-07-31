@@ -4,7 +4,6 @@ import Head from "next/head";
 import client from "../apollo-client";
 import { GET_ABOUT_PAGE } from "../queries";
 import Image from "next/image";
-import { Indie_Flower } from "next/font/google";
 
 // read up more on this
 interface AboutPageProps {
