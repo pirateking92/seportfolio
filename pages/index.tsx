@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import client from "../apollo-client";
-import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../queries";
+import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../lib/queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";

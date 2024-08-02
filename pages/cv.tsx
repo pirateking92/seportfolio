@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import client from "../apollo-client";
-import { GET_CV_PAGE } from "../queries";
+import { GET_CV_PAGE } from "../lib/queries";
 import Navbar from "../components/Navbar";
 
 interface CVPageProps {

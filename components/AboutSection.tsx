@@ -2,7 +2,7 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import client from "../apollo-client";
-import { GET_ABOUT_PAGE } from "../queries";
+import { GET_ABOUT_PAGE } from "../lib/queries";
 import Image from "next/image";
 
 // read up more on this
@@ -26,7 +26,7 @@ const About: React.FC<AboutPageProps> = ({
         </Head>
         <div className="flex flex-col lg:flex-row lg:items-start">
           <div className="flex-1">
-            <h1 className="text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
+            <h1 className="font-indieFlower text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
               {title}
             </h1>
 

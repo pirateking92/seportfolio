@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
 
         <Link
           href={"/"}
-          className="font-indieFlower text-xl md:text-3xl text-white font-semibold"
+          className="font-indieFlower text-xl md:text-3xl text-white"
         >
           Sepy
         </Link>
