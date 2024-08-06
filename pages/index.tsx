@@ -1,11 +1,16 @@
 import { GetStaticProps } from "next";
 import client from "../apollo-client";
-import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../lib/queries";
+import {
+  GET_SITE_SETTINGS,
+  GET_ABOUT_PAGE,
+  GET_CV_PAGE,
+  GET_MEDIA_ITEMS,
+} from "../lib/queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
-import parse from "html-react-parser";
+import Gallery from "../components/Gallery";
 
 interface HomePageProps {
   siteTitle: string;
@@ -18,9 +23,13 @@ interface HomePageProps {
     altText: string;
     id: string;
   };
-  cvUpload: {
-    mediaItemUrl: string;
-  };
+  mediaItems: MediaItem[];
+}
+
+interface MediaItem {
+  id: string;
+  mediaItemUrl: string;
+  caption: string;
 }
 
 const HomePage: React.FC<HomePageProps> = ({
@@ -28,14 +37,13 @@ const HomePage: React.FC<HomePageProps> = ({
   siteDescription,
   title,
   content,
-  featuredImage,
   profilePicture,
-  cvUpload,
+  mediaItems,
 }) => {
   return (
     <>
       <Head>
-        <title>Test Title</title>
+        <title>{siteTitle}</title>
       </Head>
       <div className="flex min-h-screen flex-col">
         <Navbar />
@@ -47,6 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({
               title={title}
               content={content}
             />
+            <Gallery mediaItems={mediaItems} />
           </main>
         </div>
       </div>
@@ -55,19 +64,11 @@ const HomePage: React.FC<HomePageProps> = ({
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data: siteData } = await client.query({
-    query: GET_SITE_SETTINGS,
-  });
+  const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
+  const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
+  const { data: mediaData } = await client.query({ query: GET_MEDIA_ITEMS });
 
-  const { data: aboutData } = await client.query({
-    query: GET_ABOUT_PAGE,
-  });
-
-  const { data: cvData } = await client.query({
-    query: GET_CV_PAGE,
-  });
-
-  console.log("GraphQL Data:", { siteData, aboutData, cvData });
+  console.log("GraphQL Data:", { mediaData, siteData, aboutData });
 
   const profilePicture = aboutData.page.profilePicture?.profilePicture
     ?.node || {
@@ -76,9 +77,12 @@ export const getStaticProps: GetStaticProps = async () => {
     id: "",
   };
 
-  const cvUpload = cvData.page.cvUpload || {
-    mediaItemUrl: "",
-  };
+  const mediaItems =
+    mediaData?.mediaItems?.edges?.map((edge: any) => ({
+      id: edge.node.id,
+      mediaItemUrl: edge.node.mediaItemUrl,
+      caption: edge.node.caption,
+    })) || [];
 
   return {
     props: {
@@ -86,9 +90,8 @@ export const getStaticProps: GetStaticProps = async () => {
       siteDescription: siteData.generalSettings.description,
       title: aboutData.page.title,
       content: aboutData.page.content,
-      featuredImage: aboutData.page.featuredImage?.node?.sourceUrl || "",
       profilePicture,
-      cvUpload,
+      mediaItems,
     },
   };
 };

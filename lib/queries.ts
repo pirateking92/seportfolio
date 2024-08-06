@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-// have combined both getting site title and description with the about information. 
+// have combined both getting site title and description with the about information.
 // will probably do the same for subsequent queries. Will this make loading slower?
 // Query for site settings
 export const GET_SITE_SETTINGS = gql`
@@ -38,16 +38,31 @@ export const GET_ABOUT_PAGE = gql`
 
 // Query for the CV page
 export const GET_CV_PAGE = gql`
-query GetCVPage {
-  page(id: "cv", idType: URI) {
-    cvUpload {
+  query GetCVPage {
+    page(id: "cv", idType: URI) {
       cvUpload {
-        node {
-          sourceUrl
-          mediaItemUrl
+        cvUpload {
+          node {
+            sourceUrl
+            mediaItemUrl
+          }
         }
       }
     }
   }
-}
+`;
+
+// Media items query
+export const GET_MEDIA_ITEMS = gql`
+  query GetMediaItems {
+    mediaItems {
+      edges {
+        node {
+          id
+          mediaItemUrl
+          caption
+        }
+      }
+    }
+  }
 `;
