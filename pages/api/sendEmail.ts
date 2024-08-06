@@ -1,29 +1,35 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Resend } from "resend";
+import sgMail from "@sendgrid/mail";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const fromEmail = process.env.FROM_EMAIL;
+sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+  if (req.method === "POST") {
+    const { name, email, message } = req.body;
 
-  try {
-    const { email, subject, message } = req.body;
+    const msg = {
+      to: "your-email@example.com", // Change this to your email
+      from: "your-verified-sender@example.com", // Change this to your SendGrid verified sender
+      subject: "New Contact Form Submission",
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Message: ${message}
+      `,
+    };
 
-    const data = await resend.emails.send({
-      from: fromEmail,
-      to: ["sepybaghaei@gmail.com"],
-      subject: subject,
-      text: `From: ${email}\n\n${message}`,
-    });
-
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    res.status(500).json({ success: false, error: (error as Error).message });
+    try {
+      await sgMail.send(msg);
+      res.status(200).json({ message: "Email sent successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Failed to send email" });
+    }
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

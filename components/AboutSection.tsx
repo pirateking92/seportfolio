@@ -20,10 +20,6 @@ const About: React.FC<AboutPageProps> = ({
   return (
     <div>
       <div className="container mx-auto p-4">
-        <Head>
-          <title>{title}</title>
-          <meta name="description" content="About Sepy Baghaei" />
-        </Head>
         <div className="flex flex-col lg:flex-row lg:items-start">
           <div className="flex-1">
             <h1 className="font-bodyFont text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
@@ -31,7 +27,7 @@ const About: React.FC<AboutPageProps> = ({
             </h1>
 
             <div
-              className="prose text-slate-300"
+              className="font-bodyFont prose text-slate-300"
               dangerouslySetInnerHTML={{ __html: content }}
             />
           </div>

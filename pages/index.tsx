@@ -4,7 +4,8 @@ import { GET_SITE_SETTINGS, GET_ABOUT_PAGE, GET_CV_PAGE } from "../lib/queries";
 import About from "../components/AboutSection";
 import Name from "../components/Name";
 import Navbar from "../components/Navbar";
-import ContactForm from "../components/ContactForm";
+import Head from "next/head";
+import parse from "html-react-parser";
 
 interface HomePageProps {
   siteTitle: string;
@@ -32,32 +33,24 @@ const HomePage: React.FC<HomePageProps> = ({
   cvUpload,
 }) => {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <div className="pt-16 md:pt-20">
-        <Name siteTitle={siteTitle} siteDescription={siteDescription} />
-        <main className="container mt-24 mx-auto px-12 py-4">
-          <About
-            profilePicture={profilePicture.sourceUrl}
-            title={title}
-            content={content}
-          />
-          {/* Example of using the cvUpload data
-          <div className="mt-8">
-            <a
-              href={cvUpload.mediaItemUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                View CV
-              </button>
-            </a>
-          </div> */}
-          <ContactForm />
-        </main>
+    <>
+      <Head>
+        <title>Test Title</title>
+      </Head>
+      <div className="flex min-h-screen flex-col">
+        <Navbar />
+        <div className="pt-16 md:pt-20">
+          <Name siteTitle={siteTitle} siteDescription={siteDescription} />
+          <main className="container mt-24 mx-auto px-12 py-4">
+            <About
+              profilePicture={profilePicture.sourceUrl}
+              title={title}
+              content={content}
+            />
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

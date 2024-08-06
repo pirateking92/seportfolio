@@ -1,8 +1,8 @@
 // pages/_app.tsx
 import { AppProps } from "next/app";
+import Head from "next/head";
 import "../styles/globals.css";
-import { Indie_Flower } from "next/font/google";
-import { Alegreya } from "next/font/google";
+import { Indie_Flower, Alegreya } from "next/font/google";
 
 export const headingFont = Indie_Flower({
   subsets: ["latin"],
@@ -20,9 +20,15 @@ export const bodyFont = Alegreya({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${headingFont.variable} ${bodyFont.variable}`}>
-      <Component {...pageProps} />
-    </div>
+    <>
+      <Head>
+        <title>Default Title</title>
+        {/* This will be overridden by page-specific titles */}
+      </Head>
+      <div className={`${headingFont.variable} ${bodyFont.variable}`}>
+        <Component {...pageProps} />
+      </div>
+    </>
   );
 }
 

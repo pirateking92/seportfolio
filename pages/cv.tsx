@@ -13,12 +13,12 @@ const CVPage: React.FC<CVPageProps> = ({ cvUrl }) => {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <Head>
-        <title>My CV</title>
+        <title>Sepy Baghaei's CV</title>
         <meta name="description" content="Curriculum Vitae" />
       </Head>
       <div className="flex flex-col items-center pt-16 md:pt-20">
         <h1 className="py-5 text-4xl text-slate-300 font-bold mb-4 text-center">
-          My CV
+          Sepy Baghaei's CV
         </h1>
         {cvUrl ? (
           <iframe
