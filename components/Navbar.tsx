@@ -61,14 +61,14 @@ const Navbar: React.FC = () => {
 
         <Link
           href={"/"}
-          className="font-indieFlower text-xl md:text-3xl text-white"
+          className="font-headingFont text-xl md:text-3xl text-white"
         >
           Sepy
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:block">
-          <ul className="font-indieFlower flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
+          <ul className="font-headingFont flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
             {navLinks.map((link, index) => (
               <li key={index}>
                 <NavLink href={link.path} title={link.title} />

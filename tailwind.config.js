@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        indieFlower: ['var(--font-headingFont)'],
+        headingFont: ['var(--font-headingFont)'],
+        bodyFont: ['var(--font-bodyFont)']
       },
       backgroundImage: {
         'black-to-navy': 'linear-gradient(to bottom right, #000000, #000080', // custom gradient
