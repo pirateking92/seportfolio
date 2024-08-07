@@ -54,14 +54,15 @@ export const GET_CV_PAGE = gql`
 
 // Media items query
 export const GET_MEDIA_ITEMS = gql`
-  query GetMediaItems {
-    mediaItems {
-      edges {
-        node {
-          id
-          mediaItemUrl
-          caption
-        }
+  query GetMediaItems($first: Int, $after: String) {
+    mediaItems(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        sourceUrl
+        caption
       }
     }
   }

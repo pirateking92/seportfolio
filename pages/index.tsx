@@ -3,7 +3,6 @@ import client from "../apollo-client";
 import {
   GET_SITE_SETTINGS,
   GET_ABOUT_PAGE,
-  GET_CV_PAGE,
   GET_MEDIA_ITEMS,
 } from "../lib/queries";
 import About from "../components/AboutSection";
@@ -17,7 +16,6 @@ interface HomePageProps {
   siteDescription: string;
   title: string;
   content: string;
-  featuredImage: string;
   profilePicture: {
     sourceUrl: string;
     altText: string;
@@ -27,8 +25,7 @@ interface HomePageProps {
 }
 
 interface MediaItem {
-  id: string;
-  mediaItemUrl: string;
+  sourceUrl: string;
   caption: string;
 }
 
@@ -66,9 +63,34 @@ const HomePage: React.FC<HomePageProps> = ({
 export const getStaticProps: GetStaticProps = async () => {
   const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });
   const { data: aboutData } = await client.query({ query: GET_ABOUT_PAGE });
-  const { data: mediaData } = await client.query({ query: GET_MEDIA_ITEMS });
 
-  console.log("GraphQL Data:", { mediaData, siteData, aboutData });
+  // Fetch all media items
+  let allMediaItems: MediaItem[] = [];
+  let hasNextPage = true;
+  let endCursor: string | null = null;
+
+  while (hasNextPage) {
+    const { data: mediaData } = await client.query({
+      query: GET_MEDIA_ITEMS,
+      variables: { first: 10, after: endCursor },
+    });
+
+    if (mediaData && mediaData.mediaItems) {
+      const fetchedMediaItems =
+        mediaData.mediaItems.nodes?.map((node: any) => ({
+          sourceUrl: node.sourceUrl,
+          caption: node.caption,
+        })) || []; // Default to empty array if undefined
+
+      allMediaItems = [...allMediaItems, ...fetchedMediaItems];
+
+      hasNextPage = mediaData.mediaItems.pageInfo.hasNextPage;
+      endCursor = mediaData.mediaItems.pageInfo.endCursor;
+    } else {
+      console.error("No media data found");
+      hasNextPage = false; // Stop the loop if there's an issue
+    }
+  }
 
   const profilePicture = aboutData.page.profilePicture?.profilePicture
     ?.node || {
@@ -77,13 +99,6 @@ export const getStaticProps: GetStaticProps = async () => {
     id: "",
   };
 
-  const mediaItems =
-    mediaData?.mediaItems?.edges?.map((edge: any) => ({
-      id: edge.node.id,
-      mediaItemUrl: edge.node.mediaItemUrl,
-      caption: edge.node.caption,
-    })) || [];
-
   return {
     props: {
       siteTitle: siteData.generalSettings.title,
@@ -91,7 +106,7 @@ export const getStaticProps: GetStaticProps = async () => {
       title: aboutData.page.title,
       content: aboutData.page.content,
       profilePicture,
-      mediaItems,
+      mediaItems: allMediaItems.filter((item) => item.caption), // Filter to include only items with captions
     },
   };
 };

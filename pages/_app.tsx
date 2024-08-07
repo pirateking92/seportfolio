@@ -22,6 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <link rel="icon" href="/icon.jpg" />
+        <link rel="manifest" href="/site.webmanifest" />
         <title>Default Title</title>
         {/* This will be overridden by page-specific titles */}
       </Head>
