@@ -23,7 +23,7 @@ const navLinks: NavLink[] = [
   },
   {
     title: "Gallery",
-    path: "#gallery",
+    path: "/gallery",
   },
 ];
 

@@ -26,7 +26,7 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => (
             <Image
               src={item.sourceUrl}
               alt={item.caption || "Gallery image"}
-              className="w-full"
+              className="w-full rounded"
               width={500}
               height={500}
             />

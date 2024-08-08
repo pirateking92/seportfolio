@@ -41,6 +41,10 @@ const HomePage: React.FC<HomePageProps> = ({
     <>
       <Head>
         <title>{siteTitle}</title>
+        {/* <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta> */}
       </Head>
       <div className="flex min-h-screen flex-col">
         <Navbar />
@@ -52,7 +56,9 @@ const HomePage: React.FC<HomePageProps> = ({
               title={title}
               content={content}
             />
-            <Gallery mediaItems={mediaItems} />
+            <div className="py-20 my-auto">
+              <Gallery mediaItems={mediaItems} />
+            </div>
           </main>
         </div>
       </div>
