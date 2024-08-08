@@ -37,7 +37,7 @@ const About: React.FC<AboutPageProps> = ({
             alt="Profile Picture"
             width={300}
             height={300}
-            className="rounded-full mx-auto lg:mx-0 " // Center on small screens and align left on large screens
+            className="rounded-full mx-auto lg:mx-0 "
           />
         </div>
       )}

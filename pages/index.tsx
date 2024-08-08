@@ -36,35 +36,37 @@ const HomePage: React.FC<HomePageProps> = ({
   content,
   profilePicture,
   mediaItems,
-}) => {
-  return (
-    <>
-      <Head>
-        <title>{siteTitle}</title>
-        {/* <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta> */}
-      </Head>
-      <div className="flex min-h-screen flex-col">
-        <Navbar />
-        <div className="pt-16 md:pt-20">
-          <Name siteTitle={siteTitle} siteDescription={siteDescription} />
-          <main className="container mt-24 mx-auto px-12 py-4">
-            <About
-              profilePicture={profilePicture.sourceUrl}
-              title={title}
-              content={content}
-            />
-            <div className="py-20 my-auto">
-              <Gallery mediaItems={mediaItems} />
-            </div>
-          </main>
-        </div>
+}) => (
+  <>
+    <Head>
+      <title>{siteTitle}</title>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      ></meta>
+    </Head>
+    <div className="flex min-h-screen flex-col">
+      <Navbar />
+      <div className="pt-16 md:pt-20">
+        <Name
+          profilePicture={profilePicture.sourceUrl}
+          siteTitle={siteTitle}
+          siteDescription={siteDescription}
+        />
+        <main className="container mt-24 mx-auto px-12 py-4">
+          <About
+            profilePicture={profilePicture.sourceUrl}
+            title={title}
+            content={content}
+          />
+          <div className="py-20 my-auto">
+            <Gallery mediaItems={mediaItems} />
+          </div>
+        </main>
       </div>
-    </>
-  );
-};
+    </div>
+  </>
+);
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data: siteData } = await client.query({ query: GET_SITE_SETTINGS });

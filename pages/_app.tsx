@@ -3,6 +3,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import "../styles/globals.css";
 import { Indie_Flower, Alegreya } from "next/font/google";
+import "flowbite/dist/flowbite.css";
 
 export const headingFont = Indie_Flower({
   subsets: ["latin"],

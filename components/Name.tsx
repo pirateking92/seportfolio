@@ -5,9 +5,14 @@ import parse from "html-react-parser";
 interface NameProps {
   siteTitle: string;
   siteDescription: string;
+  profilePicture;
 }
 
-const Name: React.FC<NameProps> = ({ siteTitle, siteDescription }) => (
+const Name: React.FC<NameProps> = ({
+  siteTitle,
+  siteDescription,
+  profilePicture,
+}) => (
   <div>
     <Head>
       <title>{parse(siteTitle)}</title>
@@ -19,6 +24,10 @@ const Name: React.FC<NameProps> = ({ siteTitle, siteDescription }) => (
       <p className="font-headingFont text-center text-2xl text-slate-400">
         {parse(siteDescription)}
       </p>
+      <div
+        className="absolute inset-0 bg-cover bg-bottom opacity-15 pointer-events-none block md:hidden"
+        style={{ backgroundImage: `url(${profilePicture})` }}
+      ></div>
     </div>
   </div>
 );
