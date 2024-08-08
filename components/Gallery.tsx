@@ -25,7 +25,11 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
       <h1 className="font-bodyFont text-4xl text-slate-300 font-bold mb-4 text-center">
         Productions
       </h1>
-      <Carousel slideInterval={5000} onSlideChange={handleSlideChange}>
+      <Carousel
+        slideInterval={5000}
+        onSlideChange={handleSlideChange}
+        indicators={false}
+      >
         {mediaItems.map((item, index) => {
           if (!item.sourceUrl) {
             return null; // Skip this item if sourceUrl is null or undefined
@@ -35,9 +39,9 @@ const Gallery: React.FC<GalleryProps> = ({ mediaItems }) => {
               <Image
                 src={item.sourceUrl}
                 alt={item.caption || "Gallery image"}
-                layout="fill"
-                objectFit="cover"
-                className="w-full rounded"
+                height={500}
+                width={500}
+                className="w-full rounded-xl"
               />
             </div>
           );
