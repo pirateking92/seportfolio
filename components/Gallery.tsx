@@ -1,4 +1,4 @@
-import { Carousel, Indicator } from "flowbite-react";
+import { Carousel } from "flowbite-react";
 import "flowbite/dist/flowbite.css";
 import Image from "next/image";
 import parse from "html-react-parser";
