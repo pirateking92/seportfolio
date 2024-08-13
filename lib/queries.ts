@@ -67,3 +67,15 @@ export const GET_MEDIA_ITEMS = gql`
     }
   }
 `;
+
+// Individual production page content query
+export const GET_PAGE_CONTENT = gql`
+  query GetPageContent($id: ID!) {
+    page(id: $id, idType: URI) {
+      id
+      content
+      title
+      uri
+    }
+  }
+`;

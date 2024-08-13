@@ -1,8 +1,7 @@
-// apollo-client.ts
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'https://sepybaghaei.co.uk/graphql',  // Replace with your GraphQL endpoint
+  uri: "https://sepybaghaei.co.uk/graphql",
   cache: new InMemoryCache(),
 });
 

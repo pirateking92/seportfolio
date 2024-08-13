@@ -23,8 +23,8 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ mediaItems }) => {
 
   useEffect(() => {
     setIsClient(true);
-    console.log("Media Items:", mediaItems);
-  }, [mediaItems]);
+    // console.log("Media Items:", mediaItems);
+  }, []);
 
   return (
     <>
@@ -69,14 +69,19 @@ const GalleryPage: NextPage<GalleryPageProps> = ({ mediaItems }) => {
 };
 
 function createSlug(caption: string): string {
+  if (!caption) {
+    console.error("Received empty caption");
+    return "";
+  }
   // Remove HTML tags
   const strippedCaption = caption.replace(/<[^>]+>/g, "");
   // Convert to lowercase, replace spaces with hyphens, remove non-alphanumeric characters
-  return strippedCaption
+  const slug = strippedCaption
     .toLowerCase()
     .trim()
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9-]/g, "");
+  return slug;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -93,10 +98,16 @@ export const getStaticProps: GetStaticProps = async () => {
 
     if (mediaData && mediaData.mediaItems) {
       const fetchedMediaItems =
-        mediaData.mediaItems.nodes?.map((node: any) => ({
-          sourceUrl: node.sourceUrl,
-          caption: node.caption,
-        })) || []; // Default to empty array if undefined
+        mediaData.mediaItems.nodes?.map((node: any) => {
+          if (!node.caption) {
+            console.error("Received node without caption:", node);
+          }
+          return {
+            sourceUrl: node.sourceUrl,
+            caption: node.caption || "",
+            slug: createSlug(node.caption || ""),
+          };
+        }) || []; // Default to empty array if undefined
 
       allMediaItems = [...allMediaItems, ...fetchedMediaItems];
 
@@ -107,7 +118,6 @@ export const getStaticProps: GetStaticProps = async () => {
       hasNextPage = false; // Stop the loop if there's an issue
     }
   }
-  console.log("All Media Items:", allMediaItems);
 
   return {
     props: {

@@ -22,8 +22,8 @@ const navLinks: NavLink[] = [
     path: "/cv",
   },
   {
-    title: "Gallery",
-    path: "/gallery",
+    title: "Productions",
+    path: "/productions",
   },
 ];
 

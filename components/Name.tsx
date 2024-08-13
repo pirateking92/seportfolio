@@ -25,7 +25,7 @@ const Name: React.FC<NameProps> = ({
         {parse(siteDescription)}
       </p>
       <div
-        className="absolute inset-0 bg-cover bg-bottom opacity-15 pointer-events-none block md:hidden"
+        className="absolute inset-0 bg-cover bg-bottom opacity- pointer-events-none block md:hidden"
         style={{ backgroundImage: `url(${profilePicture})` }}
       ></div>
     </div>
