@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import parse from "html-react-parser";
 import { useState, useEffect } from "react";
 import client from "../apollo-client";

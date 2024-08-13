@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import client from "../apollo-client";
 import { GET_ABOUT_PAGE } from "../lib/queries";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 // Define the props for the About page
 interface AboutPageProps {
