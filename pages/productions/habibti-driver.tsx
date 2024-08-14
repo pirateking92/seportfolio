@@ -2,6 +2,7 @@ import { GetStaticProps } from "next";
 import client from "../../apollo-client";
 import { GET_PAGE_CONTENT } from "../../lib/queries";
 import PageContent from "../../components/PageContent";
+import Navbar from "../../components/Navbar";
 
 interface PageContentProps {
   id: string;
@@ -11,41 +12,31 @@ interface PageContentProps {
 }
 
 const HabibtiDriverPage: React.FC<PageContentProps> = (props) => (
-  <PageContent {...props} />
+  <div className="flex min-h-screen flex-col">
+    <Navbar />
+    <div className="pt-16 md:pt-20">
+      <PageContent {...props} />
+    </div>
+  </div>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
-  try {
-    console.log("Attempting to fetch data...");
-    const result = await client
-      .query({
-        query: GET_PAGE_CONTENT,
-        variables: { id: "habibti-driver" },
-      })
-      .catch((error) => {
-        console.error("Error during query execution:", error);
-        return null;
-      });
+  const { data } = await client.query({
+    query: GET_PAGE_CONTENT,
+    variables: { id: "/habibti-driver/" },
+  });
 
-    console.log("GraphQL result:", JSON.stringify(result, null, 2));
-
-    if (!result || !result.data || !result.data.page) {
-      console.error("No data returned from query:", result);
-      return { notFound: true };
-    }
-
-    return {
-      props: {
-        id: result.data.page.id,
-        uri: result.data.page.uri,
-        pageContent: result.data.page.content,
-        pageTitle: result.data.page.title,
-      },
-    };
-  } catch (error) {
-    console.error("Error in getStaticProps:", error);
+  if (!data || !data.page) {
     return { notFound: true };
   }
-};
 
+  return {
+    props: {
+      id: data.page.id,
+      pageContent: data.page.content,
+      pageTitle: data.page.title,
+      uri: data.page.uri,
+    },
+  };
+};
 export default HabibtiDriverPage;

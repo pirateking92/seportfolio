@@ -1,14 +1,14 @@
-import { GetStaticProps } from "next";
-import client from "../apollo-client";
-import { GET_PAGE_CONTENT } from "../lib/queries";
+import React from "react";
 
 interface PageContentProps {
+  id: string;
   uri: string;
   pageContent: string;
   pageTitle: string;
 }
 
 const PageContent: React.FC<PageContentProps> = ({
+  id,
   uri,
   pageContent,
   pageTitle,
@@ -21,26 +21,12 @@ const PageContent: React.FC<PageContentProps> = ({
           {pageTitle}
         </h1>
         <div
-          className="font-bodyFont prose-lg  text-slate-300"
+          className="font-bodyFont prose-lg text-slate-300"
           dangerouslySetInnerHTML={{ __html: pageContent }}
         />
       </div>
     </div>
   </div>
 );
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await client.query({
-    query: GET_PAGE_CONTENT,
-  });
-
-  return {
-    props: {
-      uri: data.page.uri,
-      content: data.page.content,
-      title: data.page.title,
-    },
-  };
-};
 
 export default PageContent;
