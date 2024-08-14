@@ -20,11 +20,11 @@ const About: React.FC<AboutPageProps> = ({
     <div className="flex flex-col lg:flex-row lg:items-start">
       {/* Text content */}
       <div className="flex-1 lg:mr-8">
-        <h1 className="font-bodyFont text-4xl text-slate-300 font-bold mb-4 text-center lg:text-left">
+        <h1 className="font-bodyFont text-4xl text-white font-bold mb-4 text-center lg:text-left">
           {title}
         </h1>
         <div
-          className="font-bodyFont prose-lg  text-slate-300"
+          className="font-bodyFont prose-lg  text-white"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
